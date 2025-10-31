@@ -34,13 +34,19 @@ const App = () => {
     <div data-theme={theme}>
       
       <Routes>
-        {/* Home (public) */}
+        {/* Home (protected) */}
         <Route
           path='/'
           element={
-            <Layout showSidebar={true}>
-              <HomePage />
-            </Layout>
+            !isAuthenticated ? (
+              <Navigate to="/login" />
+            ) : !isOnboarded ? (
+              <Navigate to="/onboarding" />
+            ) : (
+              <Layout showSidebar={true}>
+                <HomePage />
+              </Layout>
+            )
           }
         />
 
